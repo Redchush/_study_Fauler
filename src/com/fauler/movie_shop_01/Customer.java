@@ -38,6 +38,22 @@ public class Customer {
         return result;
     }
 
+    public String htmlStatement(){
+        Enumeration rentals = _rentals.elements();
+        String result = "<h1>Операции аренды для <em>" + get_name() + "</em></h1><p>\n";
+        while (rentals.hasMoreElements()){
+            Rental each = (Rental) rentals.nextElement();
+            //show result for each
+            result+=each.get_movie().get_title() + " " + String.valueOf(each.getCharge()) + "<br>\n";
+
+        }
+        //add footer
+        result+="<p>Ваша задолженность составляет <em>" + String.valueOf(getTotalCharge()) +"</em><p>\n";
+        result += "Вы заработали <em>" + String.valueOf(getTotalFrequentRenterPoints()) + "</em> очков за " +
+                "активность<p>";
+        return result;
+    }
+
     public double getTotalCharge(){
         double result = 0;
         Enumeration rentals = _rentals.elements();
@@ -57,6 +73,8 @@ public class Customer {
         }
         return result;
     }
+
+
 
 
 
