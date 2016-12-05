@@ -44,7 +44,8 @@ public class Customer {
         while (rentals.hasMoreElements()){
             Rental each = (Rental) rentals.nextElement();
             //show result for each
-            result+=each.get_movie().get_title() + " " + String.valueOf(each.getCharge()) + "<br>\n";
+            result+=each.get_movie().get_title() + " " +
+                    String.valueOf(each.getCharge()) + "<br>\n";
 
         }
         //add footer
@@ -73,12 +74,6 @@ public class Customer {
         }
         return result;
     }
-
-
-
-
-
-
 
 
 }

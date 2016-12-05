@@ -9,13 +9,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.function.Supplier;
 
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
 public class CustomerTest {
-
 
     private static final String customerName = "kenni";
     private static final String movieBase = "movie";
@@ -35,57 +33,57 @@ public class CustomerTest {
                         {CustomerFactory.getCustomer(customerName, movieBase,
                                 new ArrayList<>(Collections.nCopies(2, CustomerFactory.childrens)),
                                 new ArrayList<>(Collections.nCopies(2, CustomerFactory.one))),
-                                "<h1>Операции аренды для <em>kenni</em></h1><p>\n" +
-                                        "movie0 15.0<br>\n" +
-                                        "movie1 15.0<br>\n" +
-                                        "<p>Ваша задолженность составляет <em>30.0</em><p>\n" +
-                                        "Вы заработали <em>2</em> очков за активность<p>" },
+                                "Учет аренды для kenni\n" +
+                                        "\tmovie0\t15.0\n" +
+                                        "\tmovie1\t15.0\n" +
+                                        "Сумма задолженности составляет 30.0\n" +
+                                        "Вы заработали 2 очков за активность" },
                         {
-                            CustomerFactory.getCustomer(customerName, movieBase,
-                                    new ArrayList<>(Collections.nCopies(3, CustomerFactory.regular)),
-                                    new ArrayList<>(Collections.nCopies(3, ()-> 3))),
-                            "<h1>Операции аренды для <em>kenni</em></h1><p>\n" +
-                                    "movie0 17.0<br>\n" +
-                                    "movie1 17.0<br>\n" +
-                                    "movie2 17.0<br>\n" +
-                                    "<p>Ваша задолженность составляет <em>51.0</em><p>\n" +
-                                    "Вы заработали <em>3</em> очков за активность<p>"
+                                CustomerFactory.getCustomer(customerName, movieBase,
+                                        new ArrayList<>(Collections.nCopies(3, CustomerFactory.regular)),
+                                        new ArrayList<>(Collections.nCopies(3, ()-> 3))),
+                                "Учет аренды для kenni\n" +
+                                        "\tmovie0\t17.0\n" +
+                                        "\tmovie1\t17.0\n" +
+                                        "\tmovie2\t17.0\n" +
+                                        "Сумма задолженности составляет 51.0\n" +
+                                        "Вы заработали 3 очков за активность"
 
                         },
                         {
                                 CustomerFactory.getCustomer(customerName, movieBase,
                                         new ArrayList<>(Collections.nCopies(3, CustomerFactory.new_release)),
                                         new ArrayList<>(Collections.nCopies(3, ()-> 4))),
-                                "<h1>Операции аренды для <em>kenni</em></h1><p>\n" +
-                                        "movie0 12.0<br>\n" +
-                                        "movie1 12.0<br>\n" +
-                                        "movie2 12.0<br>\n" +
-                                        "<p>Ваша задолженность составляет <em>36.0</em><p>\n" +
-                                        "Вы заработали <em>6</em> очков за активность<p>"
+                                "Учет аренды для kenni\n" +
+                                        "\tmovie0\t12.0\n" +
+                                        "\tmovie1\t12.0\n" +
+                                        "\tmovie2\t12.0\n" +
+                                        "Сумма задолженности составляет 36.0\n" +
+                                        "Вы заработали 6 очков за активность"
 
                         },
                         {
                                 CustomerFactory.getCustomer(customerName, movieBase,
-                                      CustomerFactory.allCodes,
-                                      new ArrayList<>(Collections.nCopies(3, ()-> 4))),
-                                "<h1>Операции аренды для <em>kenni</em></h1><p>\n" +
-                                        "movie0 12.0<br>\n" +
-                                        "movie1 30.0<br>\n" +
-                                        "movie2 32.0<br>\n" +
-                                        "<p>Ваша задолженность составляет <em>74.0</em><p>\n" +
-                                        "Вы заработали <em>4</em> очков за активность<p>"
+                                        CustomerFactory.allCodes,
+                                        new ArrayList<>(Collections.nCopies(3, ()-> 4))),
+                                "Учет аренды для kenni\n" +
+                                        "\tmovie0\t12.0\n" +
+                                        "\tmovie1\t30.0\n" +
+                                        "\tmovie2\t32.0\n" +
+                                        "Сумма задолженности составляет 74.0\n" +
+                                        "Вы заработали 4 очков за активность"
                         },
 
                         {
                                 CustomerFactory.getCustomer(customerName, movieBase,
                                         CustomerFactory.allCodes,
                                         new ArrayList<>(Collections.nCopies(3, ()-> 2))),
-                                "<h1>Операции аренды для <em>kenni</em></h1><p>\n" +
-                                        "movie0 6.0<br>\n" +
-                                        "movie1 15.0<br>\n" +
-                                        "movie2 2.0<br>\n" +
-                                        "<p>Ваша задолженность составляет <em>23.0</em><p>\n" +
-                                        "Вы заработали <em>4</em> очков за активность<p>"
+                                "Учет аренды для kenni\n" +
+                                        "\tmovie0\t6.0\n" +
+                                        "\tmovie1\t15.0\n" +
+                                        "\tmovie2\t2.0\n" +
+                                        "Сумма задолженности составляет 23.0\n" +
+                                        "Вы заработали 4 очков за активность"
                         }
 
                 };
@@ -93,11 +91,10 @@ public class CustomerTest {
     }
 
     @Test
-    public void statement() throws Exception {
-        final String statement = customer.htmlStatement();
+    public void htmlStatement() throws Exception {
+        final String statement = customer.statement();
         assertEquals(statement, expectedReport);
     }
-
 
 
 }

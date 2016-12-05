@@ -26,34 +26,13 @@ public class Rental {
         this._daysRented = _daysRented;
     }
 
-    public double getCharge() {
-        double result = 0;
-        switch (get_movie().get_priceCode()) {
-            case Movie.REGULAR:
-                result += 2;
-                if (get_daysRented() > 2) {
-                    result += (get_daysRented() - 2) * 15;
-                }
-                break;
-            case Movie.NEW_RELEASE:
-                result += get_daysRented() * 3;
-                break;
-            case Movie.CHILDRENS:
-                result += 15;
-                if (get_daysRented() > 3) {
-                    result += (get_daysRented() - 3) * 15;
-                }
-                break;
-        }
-        return result;
+    protected int getFrequentRenterPoints() {
+        return _movie.getFrequentRenterPoint(_daysRented);
     }
 
-    protected int getFrequentRenterPoints() {
-        if ((get_movie().get_priceCode() == Movie.NEW_RELEASE)
-                && get_daysRented() > 1) {
-            return 2;
-        } else {
-            return 1;
-        }
+    public double getCharge(){
+        return _movie.getCharge(_daysRented);
     }
+
+
 }
