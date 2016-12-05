@@ -30,7 +30,7 @@ public class Customer {
         while (rentals.hasMoreElements()) {
             double thisAmount = 0;
             Rental each = (Rental) rentals.nextElement();
-            thisAmount = amountFor(each);
+            thisAmount = each.amountFor();
 
             //добавить очки для активного арендатора
             frequentRenterPoints++;
@@ -54,25 +54,4 @@ public class Customer {
 
     }
 
-    private double amountFor(Rental aRental) {
-        double thisAmount = 0;
-        switch (aRental.get_movie().get_priceCode()) {
-            case Movie.REGULAR:
-                thisAmount += 2;
-                if (aRental.get_daysRented() > 2) {
-                    thisAmount += (aRental.get_daysRented() - 2) * 15;
-                }
-                break;
-            case Movie.NEW_RELEASE:
-                thisAmount += aRental.get_daysRented() * 3;
-                break;
-            case Movie.CHILDRENS:
-                thisAmount += 15;
-                if (aRental.get_daysRented() > 3) {
-                    thisAmount += (aRental.get_daysRented() - 3) * 15;
-                }
-                break;
-        }
-        return thisAmount;
-    }
 }
