@@ -21,28 +21,46 @@ public class Customer {
     }
 
     public String statement(){
-        double totalAmount = 0;
-        int frequentRenterPoints = 0;
         Enumeration rentals = _rentals.elements();
-
         String result = "Учет аренды для " + get_name() + "\n";
 
         while (rentals.hasMoreElements()) {
             Rental each = (Rental) rentals.nextElement();
-            //добавить очки для активного арендатора
-            frequentRenterPoints += each.getFrequentRenterPoints();
             //show results for its renal
             result += "\t" + each.get_movie().get_title() + "\t"
                     + String.valueOf(each.getCharge()) + "\n";
-            totalAmount += each.getCharge();
         }
         //add footer
         result += "Сумма задолженности составляет " +
-                String.valueOf(totalAmount) + "\n";
-        result += "Вы заработали " + String.valueOf(frequentRenterPoints) + " очков за " +
+                String.valueOf(getTotalCharge()) + "\n";
+        result += "Вы заработали " + String.valueOf(getTotalFrequentRenterPoints()) + " очков за " +
                 "активность";
         return result;
     }
+
+    public double getTotalCharge(){
+        double result = 0;
+        Enumeration rentals = _rentals.elements();
+        while (rentals.hasMoreElements()) {
+            Rental each = (Rental) rentals.nextElement();
+            result += each.getCharge();
+        }
+        return result;
+    }
+
+    public int getTotalFrequentRenterPoints(){
+        int result = 0;
+        Enumeration rentals = _rentals.elements();
+        while (rentals.hasMoreElements()) {
+            Rental each = (Rental) rentals.nextElement();
+            result += each.getFrequentRenterPoints();
+        }
+        return result;
+    }
+
+
+
+
 
 
 }
