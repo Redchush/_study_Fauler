@@ -1,8 +1,6 @@
 package util;
 
-import com.fauler.movie_shop_01.Customer;
-import com.fauler.movie_shop_01.Movie;
-import com.fauler.movie_shop_01.Rental;
+import com.fauler.movie_shop_01.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;

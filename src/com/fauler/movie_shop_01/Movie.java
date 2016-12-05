@@ -1,17 +1,22 @@
 package com.fauler.movie_shop_01;
 
+import com.fauler.movie_shop_01.price.ChildrenPrice;
+import com.fauler.movie_shop_01.price.NewReleasePrice;
+import com.fauler.movie_shop_01.price.Price;
+import com.fauler.movie_shop_01.price.RegularPrice;
+
 public class Movie {
 
     public static final int CHILDRENS =2;
     public static final int REGULAR =0;
     public static final int NEW_RELEASE =1;
 
+    private Price price;
     private String _title;
-    private int _priceCode;
 
     public Movie(String _title, int _priceCode) {
         this._title = _title;
-        this._priceCode = _priceCode;
+         set_priceCode(_priceCode);
     }
 
     public String get_title() {
@@ -23,36 +28,38 @@ public class Movie {
     }
 
     public int get_priceCode() {
-        return _priceCode;
+        return getPrice().get_priceCode();
     }
 
     public void set_priceCode(int _priceCode) {
-        this._priceCode = _priceCode;
-    }
-
-    public double getCharge(int daysRented) {
-        double result = 0;
-        switch (_priceCode) {
+        switch (_priceCode){
             case REGULAR:
-                result += 2;
-                if (daysRented > 2) {
-                    result += (daysRented- 2) * 15;
-                }
+                setPrice(new RegularPrice());
                 break;
             case NEW_RELEASE:
-                result += daysRented * 3;
+                setPrice(new NewReleasePrice());
                 break;
             case CHILDRENS:
-                result += 15;
-                if (daysRented > 3) {
-                    result += (daysRented - 3) * 15;
-                }
+                setPrice(new ChildrenPrice());
                 break;
+            default:
+                throw new IllegalArgumentException("Icorrect Price Code");
         }
-        return result;
     }
 
     public int getFrequentRenterPoint(int daysRented) {
-        return _priceCode == NEW_RELEASE && daysRented > 1 ? 2 : 1;
+        return price.getFrequentRenterPoint(daysRented);
+    }
+
+    public Price getPrice() {
+        return price;
+    }
+
+    public void setPrice(Price price) {
+        this.price = price;
+    }
+
+    public double getCharge(int daysRented) {
+        return price.getCharge(daysRented);
     }
 }
