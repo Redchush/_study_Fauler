@@ -28,30 +28,21 @@ public class Customer {
         String result = "Учет аренды для " + get_name() + "\n";
 
         while (rentals.hasMoreElements()) {
-            double thisAmount = 0;
             Rental each = (Rental) rentals.nextElement();
-            thisAmount = each.amountFor();
-
             //добавить очки для активного арендатора
-            frequentRenterPoints++;
-            //бонус за ренду новинки на два дня
-            if ((each.get_movie().get_priceCode() == Movie.NEW_RELEASE)
-                    && each.get_daysRented() > 1) {
-                frequentRenterPoints++;
-            }
+            frequentRenterPoints += each.getFrequentRenterPoints();
             //show results for its renal
             result += "\t" + each.get_movie().get_title() + "\t"
-                    + String.valueOf(thisAmount) + "\n";
-            totalAmount += thisAmount;
+                    + String.valueOf(each.getCharge()) + "\n";
+            totalAmount += each.getCharge();
         }
-
         //add footer
         result += "Сумма задолженности составляет " +
                 String.valueOf(totalAmount) + "\n";
         result += "Вы заработали " + String.valueOf(frequentRenterPoints) + " очков за " +
                 "активность";
         return result;
-
     }
+
 
 }
